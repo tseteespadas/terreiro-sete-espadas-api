@@ -4,7 +4,7 @@ const validator = require("express-joi-validation").createValidator({});
 
 const router = express.Router();
 
-const Gira = require("../models/Gira");
+const Gira = require("../models/gira");
 const GiraValidator = require("../validators/gira");
 
 const afterResponse = require("../helpers/afterResponse");
