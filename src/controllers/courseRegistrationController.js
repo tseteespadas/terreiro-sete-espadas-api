@@ -4,8 +4,8 @@ const validator = require("express-joi-validation").createValidator({});
 
 const router = express.Router();
 
-const CourseRegistration = require("../models/courseRegistration");
-const Course = require("../models/course");
+const CourseRegistration = require("../models/CourseRegistration");
+const Course = require("../models/Course");
 const CourseRegistrationValidator = require("../validators/courseRegistration");
 
 const afterResponse = require("../helpers/afterResponse");
