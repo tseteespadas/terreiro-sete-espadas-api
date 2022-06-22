@@ -6,8 +6,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-require("./controllers/giraController")(app);
-require("./controllers/giraRegistrationController")(app);
 require("./controllers/giraNotificationController")(app);
 require("./controllers/desenvolvimentoCourseController")(app);
 require("./controllers/desenvolvimentoCourseRegistrationController")(app);
