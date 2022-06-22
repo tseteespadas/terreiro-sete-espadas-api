@@ -8,5 +8,14 @@ app.use(express.json());
 
 require("./controllers/giraController")(app);
 require("./controllers/giraRegistrationController")(app);
+require("./controllers/giraNotificationController")(app);
+require("./controllers/desenvolvimentoCourseController")(app);
+require("./controllers/desenvolvimentoCourseRegistrationController")(app);
+require("./controllers/umbandaCourseController")(app);
+require("./controllers/umbandaCourseRegistrationController")(app);
+require("./controllers/zePelintraCourseController")(app);
+require("./controllers/zePelintraCourseRegistrationController")(app);
+
+require("./scheduler").scheduler();
 
 app.listen(process.env.PORT || 8080)

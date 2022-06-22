@@ -1,7 +1,7 @@
 const mongoose = require("../services/database");
 
-const CourseRegistrationSchema = new mongoose.Schema({
-  courseId: {
+const ZePelintraCourseRegistration = new mongoose.Schema({
+  course_id: {
     type: mongoose.ObjectId,
     require: true,
   },
@@ -24,5 +24,4 @@ const CourseRegistrationSchema = new mongoose.Schema({
 });
 
 module.exports =
-  mongoose.models.CourseRegistration ||
-  mongoose.model("CourseRegistration", CourseRegistrationSchema);
+  mongoose.models.ZePelintraCourseRegistration || mongoose.model("ZePelintraCourseRegistration", ZePelintraCourseRegistration);
