@@ -17,6 +17,34 @@ const DesenvolvimentoCourseRegistration = new mongoose.Schema({
     type: String,
     require: true,
   },
+  gender: {
+    type: String,
+    require: true,
+  },
+  pronoums: {
+    type: String,
+    require: true,
+  },
+  address: {
+    type: String,
+    require: true,
+  },
+  cep: {
+    type: String,
+    require: true,
+  },
+  number: {
+    type: String,
+    require: true,
+  },
+  city: {
+    type: String,
+    require: true,
+  },
+  neighborhood: {
+    type: String,
+    require: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

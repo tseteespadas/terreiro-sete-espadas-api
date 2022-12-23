@@ -63,7 +63,7 @@ router.post(
       await Promise.all([
         sendMail(
           email,
-          "Terreiro Sete Espadas - Confirmação de Inscrição no Curso Desenvolvimento de Terreiro",
+          "Comunidade Ògún Onirê - Confirmação de Inscrição no Curso Desenvolvimento de Terreiro",
           "courseconfirm",
           {
             nome: name,
@@ -72,8 +72,8 @@ router.post(
           null
         ),
         sendMail(
-          "tseteespadas@gmail.com",
-          "Terreiro Sete Espadas - Nova Inscrição no Curso Desenvolvimento de Terreiro",
+          "comunidadeonire@gmail.com",
+          "Comunidade Ògún Onirê - Nova Inscrição no Curso Desenvolvimento de Terreiro",
           "courseconfirmself",
           {
             ...req.body,

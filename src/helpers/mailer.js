@@ -13,7 +13,7 @@ async function sendEmail(to, subject, templateName, context, attachments) {
   transporter.use("compile", hbs(handlebarOptions));
 
   const info = await transporter.sendMail({
-    from: '"Terreiro Sete Espadas" <tseteespadas@gmail.com>',
+    from: '"Comunidade Onirê" <comunidadeonire@gmail.com>',
     to,
     subject,
     template: templateName,

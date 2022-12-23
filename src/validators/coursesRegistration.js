@@ -9,5 +9,12 @@ module.exports = {
     name: Joi.string().required(),
     email: Joi.string().required(),
     phone: Joi.string().required(),
+    gender: Joi.string().required(),
+    pronoums: Joi.string().required(),
+    address: Joi.string().required(),
+    cep: Joi.string().required(),
+    number: Joi.string().required(),
+    city: Joi.string().required(),
+    neighborhood: Joi.string().required(),
   }),
 };
