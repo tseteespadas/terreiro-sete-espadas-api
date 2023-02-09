@@ -1,6 +1,6 @@
 const cron = require('node-cron');
 const notificationService = require("../services/notification");
-const Gira = require("../models/gira");
+const Gira = require("../models/Gira");
 const GiraNotification = require("../models/GiraNotification");
 const sendMail = require("../helpers/mailer");
 

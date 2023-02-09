@@ -18,7 +18,7 @@ ac.grant("admin")
   .updateAny("/groups")
   .deleteAny("/groups")
   .readAny("/calendar/events")
-  .createAny("/calendar/events")
+  .createAny("/calendar/event")
   .deleteAny("/calendar/event")
   .updateAny("/calendar/event");
 
