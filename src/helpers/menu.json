@@ -1,0 +1,30 @@
+{
+  "admin": [
+    {
+      "name": "Calendário",
+      "path": "/calendario",
+      "description": "Permite visualizar, adicionar, atualizar e remover eventos para grupos de usuários.",
+      "icon": ["fas", "calendar-alt"]
+    },
+    {
+      "name": "Grupos",
+      "path": "/grupos",
+      "description": "Permite gerenciar os grupos e pessoas pertencentes a um determinado grupo.",
+      "icon": ["fas", "users"]
+    },
+    {
+      "name": "Usuários",
+      "path": "/usuarios",
+      "description": "Permite visualizar, adicionar e remover os usuários da plataforma.",
+      "icon": ["fas", "user-plus"]
+    }
+  ],
+  "user": [
+    {
+      "name": "Calendário",
+      "path": "/calendario",
+      "description": "Visualize os próximos eventos do terreiro como giras, rituais, manifestações, e mais!",
+      "icon": ["fas", "calendar-alt"]
+    }
+  ]
+}
