@@ -1,4 +1,4 @@
-const Users = require("../models/users");
+const Users = require("../models/Users");
 const UserGroups = require("../models/UserGroups");
 
 async function groupsMiddleware(req, res, next) {
