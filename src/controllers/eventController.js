@@ -23,7 +23,7 @@ router.get(
     try {
       res.on("finish", () => afterResponse(req, res));
       if (
-        !permissionMiddleware(req, "readOwn") ||
+        !permissionMiddleware(req, "readOwn") &&
         !permissionMiddleware(req, "readAny")
       ) {
         return res.status(403).json({ message: "Acesso negado." });
