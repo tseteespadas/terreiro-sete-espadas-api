@@ -4,7 +4,8 @@ const ac = new AccessControl();
 
 ac.grant("user")
   .readOwn("/calendar/events")
-  .readOwn("/group");
+  .readOwn("/group")
+  .readAny("/playlists");
 
 ac.grant("admin")
   .extend("user")

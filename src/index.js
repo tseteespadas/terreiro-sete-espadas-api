@@ -22,6 +22,7 @@ require("./controllers/zePelintraCourseRegistrationController")(app);
 require("./controllers/userController")(app);
 require("./controllers/groupController")(app);
 require("./controllers/eventController")(app);
+require("./controllers/playlistsController")(app);
 
 app.listen(process.env.PORT || 8080)
 module.exports = app;

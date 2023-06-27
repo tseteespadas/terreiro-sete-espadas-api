@@ -55,7 +55,8 @@ router.get(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        message: "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
+        message:
+          "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
   })
@@ -99,7 +100,8 @@ router.post(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        message: "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
+        message:
+          "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
   })
@@ -119,7 +121,7 @@ router.delete(
       const { user_id } = req.query;
       const userExists = await Users.findOne({
         user_id,
-      }).select({_id: 1});
+      }).select({ _id: 1 });
 
       if (!userExists) {
         return res.status(400).json({
@@ -134,7 +136,8 @@ router.delete(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        message: "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
+        message:
+          "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
   })
@@ -199,12 +202,13 @@ router.post(
           name: user.name,
           role: user.role,
         },
-        menu: require("../helpers/menu.json")[user.role]
+        menu: require("../helpers/menu.js")[user.role],
       });
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        message: "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
+        message:
+          "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
   })
@@ -223,7 +227,8 @@ router.post(
 
       if (!user) {
         return res.status(400).json({
-          message: "Não é possível fazer logout. Entre em contato com um administrador.",
+          message:
+            "Não é possível fazer logout. Entre em contato com um administrador.",
         });
       }
 
@@ -240,7 +245,8 @@ router.post(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        message: "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
+        message:
+          "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
   })
@@ -259,7 +265,8 @@ router.put(
       });
       if (!userExists) {
         return res.status(422).json({
-          message: "O usuário não existe ou já realizou a confirmação da conta.",
+          message:
+            "O usuário não existe ou já realizou a confirmação da conta.",
         });
       }
       const plainPassword = user.password;
@@ -285,7 +292,8 @@ router.put(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        message: "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
+        message:
+          "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
   })
@@ -303,7 +311,7 @@ router.put(
       }
       const user = { ...req.body };
       const userExists = await Users.findOne({
-        user_id: user.user_id
+        user_id: user.user_id,
       });
       if (!userExists) {
         return res.status(400).json({
@@ -314,13 +322,13 @@ router.put(
       await Users.findOneAndUpdate({ user_id: user.user_id }, user);
 
       return res.status(200).json({
-        message:
-          "Usuário atualizado com sucesso.",
+        message: "Usuário atualizado com sucesso.",
       });
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        message: "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
+        message:
+          "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
   })
