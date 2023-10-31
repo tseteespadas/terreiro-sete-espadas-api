@@ -21,7 +21,17 @@ ac.grant("admin")
   .readAny("/calendar/events")
   .createAny("/calendar/event")
   .deleteAny("/calendar/event")
-  .updateAny("/calendar/event");
+  .updateAny("/calendar/event")
+  .readAny("/billing-user-groups")
+  .createAny("/billing-user-groups")
+  .deleteAny("/billing-user-groups")
+  .updateAny("/billing-user-groups")
+  .updateAny("/billing-user-groups/activate")
+  .updateAny("/billing-user-groups/inactivate")
+  .readAny("/billing-value-groups")
+  .createAny("/billing-value-groups")
+  .updateAny("/billing-value-groups")
+  .deleteAny("/billing-value-groups");
 
 ac.lock();
 

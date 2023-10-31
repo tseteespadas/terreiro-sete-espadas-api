@@ -1,4 +1,4 @@
-const cron = require('node-cron');
+const cron = require("node-cron");
 
 /**
 # ┌────────────── second (optional)
@@ -11,12 +11,12 @@ const cron = require('node-cron');
 # │ │ │ │ │ │
 # * * * * * *
 */
+const BILLING_SCHEDULER = "0 12 25 * *";
 
-const NOTIFICATION_CRON_TIME = "0 12 * * 5";
+const billingScheduler = require("./billingScheduler");
 
-function scheduler() {
+async function scheduler() {
+  cron.schedule(BILLING_SCHEDULER, billingScheduler);
 }
 
-module.exports = Object.freeze({
-  scheduler
-});
+module.exports = scheduler;

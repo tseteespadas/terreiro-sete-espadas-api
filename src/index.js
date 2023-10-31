@@ -7,8 +7,8 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  return res.send("Comunidade Ògún Onirê API")
-})
+  return res.send("Comunidade Ògún Onirê API");
+});
 
 require("./controllers/giraNotificationController")(app);
 require("./controllers/desenvolvimentoCourseController")(app);
@@ -18,11 +18,17 @@ require("./controllers/umbandaCourseRegistrationController")(app);
 require("./controllers/zePelintraCourseController")(app);
 require("./controllers/zePelintraCourseRegistrationController")(app);
 
+require("./controllers/billingGroupController")(app);
+require("./controllers/billingUserController")(app);
 
 require("./controllers/userController")(app);
 require("./controllers/groupController")(app);
 require("./controllers/eventController")(app);
 require("./controllers/playlistsController")(app);
 
-app.listen(process.env.PORT || 8080)
+app.listen(process.env.PORT || 8080);
+
+const scheduler = require("./scheduler");
+scheduler();
+
 module.exports = app;
