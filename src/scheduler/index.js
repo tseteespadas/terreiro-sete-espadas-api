@@ -11,7 +11,7 @@ const cron = require("node-cron");
 # │ │ │ │ │ │
 # * * * * * *
 */
-const BILLING_SCHEDULER = "20 19 25 * *";
+const BILLING_SCHEDULER = "30 19 25 * *";
 
 const billingScheduler = require("./billingScheduler");
 
