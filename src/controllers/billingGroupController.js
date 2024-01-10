@@ -23,7 +23,7 @@ router.get(
       }
       const billingValueGroups = await BillingValueGroups.find();
 
-      return res.status(200).json({ data: billingValueGroups });
+      return res.status(200).json(billingValueGroups);
     } catch (err) {
       console.log(err);
       return res.status(500).json({
@@ -67,7 +67,7 @@ router.post(
         name: name.toLowerCase(),
       });
 
-      return res.status(201).json({ data: billingGroup });
+      return res.status(201).json(billingGroup);
     } catch (err) {
       console.log(err);
       return res.status(500).json({
@@ -113,7 +113,7 @@ router.put(
         }
       );
 
-      return res.status(200).json({ data: billingGroup });
+      return res.status(200).json(billingGroup);
     } catch (err) {
       console.log(err);
       return res.status(500).json({

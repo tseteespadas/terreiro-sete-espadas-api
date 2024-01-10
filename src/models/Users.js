@@ -29,6 +29,10 @@ const Users = new mongoose.Schema({
     require: true,
     default: false,
   },
+  avatarUrl: {
+    type: String,
+    default: null,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -39,5 +43,4 @@ const Users = new mongoose.Schema({
   },
 });
 
-module.exports =
-  mongoose.models.Users || mongoose.model("Users", Users);
+module.exports = mongoose.models.Users || mongoose.model("Users", Users);

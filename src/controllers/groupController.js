@@ -9,12 +9,14 @@ const authMiddleware = require("../middlewares/auth");
 const groupsMiddleware = require("../middlewares/groups");
 const permissionMiddleware = require("../middlewares/permission");
 
+const GroupValidator = require("../validators/groups");
+
+const Users = require("../models/Users");
 const Groups = require("../models/Groups");
 const UserGroups = require("../models/UserGroups");
 const CalendarEvent = require("../models/CalendarEvent");
 
 const afterResponse = require("../helpers/afterResponse");
-const Users = require("../models/Users");
 
 router.get(
   "/",
@@ -59,6 +61,99 @@ router.get(
       });
 
       return res.status(200).json({ users });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        error:
+          "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
+      });
+    }
+  })
+);
+
+/** Get groups info of one user */
+router.get(
+  "/:user_id/groups",
+  authMiddleware,
+  groupsMiddleware,
+  handle(async (req, res) => {
+    try {
+      res.on("finish", () => afterResponse(req, res));
+      if (
+        !permissionMiddleware(req, "readAny", "/v2/user/list") ||
+        !permissionMiddleware(req, "readAny", "/groups/users")
+      ) {
+        return res.status(403).json({ message: "Acesso negado." });
+      }
+
+      const { user_id } = req.params;
+
+      const user = await Users.findOne({ user_id }).select({
+        _id: 1,
+        user_id: 1,
+      });
+
+      if (!user) {
+        return res.status(400).json({
+          message: "O usuário não existe.",
+        });
+      }
+
+      const userGroups = await UserGroups.find({ user_id });
+
+      const groups = await Groups.find({
+        group_id: userGroups.map((userGroup) => userGroup.group_id),
+      });
+
+      return res.status(200).json(groups);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        message:
+          "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
+      });
+    }
+  })
+);
+
+/** Update user groups */
+router.put(
+  "/:user_id",
+  authMiddleware,
+  groupsMiddleware,
+  validator.params(GroupValidator.updateUserGroupsParam),
+  validator.body(GroupValidator.updateUserGroupsBody),
+  handle(async (req, res) => {
+    try {
+      res.on("finish", () => afterResponse(req, res));
+      if (!permissionMiddleware(req, "updateAny", "/groups/user")) {
+        return res.status(403).json({ message: "Acesso negado." });
+      }
+      const { user_id } = req.params;
+      const { groups } = req.body;
+
+      const exists = await Users.findOne({ user_id });
+      if (!exists) {
+        return res.status(400).json({ message: "O usuário não existe." });
+      }
+
+      for (const groupId of groups) {
+        const exists = await Groups.findOne({ group_id: groupId });
+        if (!exists) {
+          return res.status(400).json({ message: "O grupo não existe." });
+        }
+      }
+
+      const newGroups = groups.map((group_id) => ({
+        user_id,
+        group_id,
+      }));
+      await UserGroups.deleteMany({ user_id });
+      await UserGroups.insertMany(newGroups);
+
+      return res
+        .status(200)
+        .json({ message: "Os usuários foram atualizados com sucesso." });
     } catch (err) {
       console.log(err);
       return res.status(500).json({
@@ -217,7 +312,7 @@ router.delete(
             event_id: event.event_id,
           },
           {
-            groups: event.groups.filter((id) => id !== group_id)
+            groups: event.groups.filter((id) => id !== group_id),
           }
         );
       }
