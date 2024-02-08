@@ -235,7 +235,7 @@ router.delete(
   "/:user_id/delete",
   authMiddleware,
   groupsMiddleware,
-  validator.query(UserValidator.delete),
+  validator.params(UserValidator.delete),
   handle(async (req, res) => {
     try {
       res.on("finish", () => afterResponse(req, res));

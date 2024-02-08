@@ -22,6 +22,12 @@ module.exports = {
       icon: ["fas", "user-plus"],
     },
     {
+      name: "Cobranças",
+      path: "/cobrancas",
+      description: "Permite gerenciar os grupos de pagamento de mensalidades.",
+      icon: ["fas", "money-bill-alt"],
+    },
+    {
       name: "Biblioteca",
       path: "/biblioteca",
       description: "Base de conhecimento da Comunidade Ògún Onirê",

@@ -41,6 +41,51 @@ router.get(
   })
 );
 
+// get group and users info given an group_id
+router.get(
+  "/:group_id/data",
+  authMiddleware,
+  groupsMiddleware,
+  handle(async (req, res) => {
+    try {
+      res.on("finish", () => afterResponse(req, res));
+      if (!permissionMiddleware(req, "readAny", "/groups")) {
+        return res.status(403).json({ message: "Acesso negado." });
+      }
+      const { group_id } = req.params;
+      const group = await Groups.findOne({ group_id }).select({
+        group_name: 1,
+      });
+      const usersIds = await UserGroups.find({ group_id }).select({
+        user_id: 1,
+      });
+      const users = await Users.find({
+        user_id: usersIds.map((u) => u.user_id),
+      }).select({
+        user_id: 1,
+        name: 1,
+        email: 1,
+        role: 1,
+        avatarUrl: 1,
+      });
+
+      return res.status(200).json({
+        group: {
+          group_id,
+          group_name: group.group_name,
+        },
+        users,
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        error:
+          "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
+      });
+    }
+  })
+);
+
 router.get(
   "/users",
   authMiddleware,
@@ -58,6 +103,12 @@ router.get(
 
       const users = await Users.find({
         user_id: usersIds.map((u) => u.user_id),
+      }).select({
+        user_id: 1,
+        name: 1,
+        email: 1,
+        role: 1,
+        avatarUrl: 1,
       });
 
       return res.status(200).json({ users });
@@ -239,8 +290,25 @@ router.patch(
       if (!permissionMiddleware(req, "updateAny")) {
         return res.status(403).json({ message: "Acesso negado." });
       }
-      const { user_id, group_id } = req.body;
-      console.log(req);
+      const group_id = req.body.group_id;
+      const users = [];
+      if (
+        req.body.users &&
+        typeof req.body.users === "object" &&
+        req.body.users.hasOwnProperty("length")
+      ) {
+        req.body.users.forEach((user) => {
+          if (user && typeof user === "string") {
+            users.push(user);
+          }
+        });
+      } else if (req.body.user_id && typeof req.body.user_id === "string") {
+        users.push(req.body.user_id);
+      } else {
+        return res
+          .status(400)
+          .json({ message: "Os dados fornecidos são inválidos." });
+      }
       const exists = await Groups.findOne({ group_id });
       if (!exists) {
         return res.status(400).json({ message: "O grupo não existe." });
@@ -253,16 +321,18 @@ router.patch(
         ({ user_id }) => user_id
       );
 
-      if (currentUsersIdsInGroup.includes(user_id)) {
-        await UserGroups.deleteOne({
-          group_id,
-          user_id,
-        });
-      } else {
-        await UserGroups.create({
-          group_id,
-          user_id,
-        });
+      for (const user_id of users) {
+        if (currentUsersIdsInGroup.includes(user_id)) {
+          await UserGroups.deleteOne({
+            group_id,
+            user_id,
+          });
+        } else {
+          await UserGroups.create({
+            group_id,
+            user_id,
+          });
+        }
       }
 
       return res

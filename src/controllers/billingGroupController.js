@@ -8,6 +8,7 @@ const groupsMiddleware = require("../middlewares/groups");
 const permissionMiddleware = require("../middlewares/permission");
 
 const BillingValueGroups = require("../models/BillingValueGroups");
+const BillingUsers = require("../models/BillingUsers");
 
 const afterResponse = require("../helpers/afterResponse");
 
@@ -27,7 +28,55 @@ router.get(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        error:
+        message:
+          "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
+      });
+    }
+  })
+);
+
+router.get(
+  "/:id",
+  authMiddleware,
+  groupsMiddleware,
+  handle(async (req, res) => {
+    try {
+      res.on("finish", () => afterResponse(req, res));
+      if (!permissionMiddleware(req, "readAny", "/billing-value-groups")) {
+        return res.status(403).json({ message: "Acesso negado." });
+      }
+      const { id } = req.params;
+      const billingValueGroup = await BillingValueGroups.findOne({ id }).select(
+        {
+          id: 1,
+          name: 1,
+          value: 1,
+        }
+      );
+      if (!billingValueGroup) {
+        return res
+          .status(400)
+          .json({ message: "O grupo solicitado não existe." });
+      }
+
+      const billingGroupUsers = await BillingUsers.find({
+        billing_group_id: id,
+      }).select({
+        id: 1,
+        user_name: 1,
+        user_billing_email: 1,
+        user_email: 1,
+        billing_group_id: 1,
+        active: 1,
+      });
+
+      return res
+        .status(200)
+        .json({ group: billingValueGroup, users: billingGroupUsers });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        message:
           "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
@@ -71,7 +120,7 @@ router.post(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        error:
+        message:
           "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
@@ -117,7 +166,7 @@ router.put(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        error:
+        message:
           "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
@@ -153,11 +202,11 @@ router.delete(
 
       await BillingValueGroups.deleteOne({ id });
 
-      return res.status(200);
+      return res.status(200).json();
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        error:
+        message:
           "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
