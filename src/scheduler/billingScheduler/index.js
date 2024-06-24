@@ -13,7 +13,7 @@ async function billingScheduler(startedAt = new Date()) {
       status: "RUNNING",
     });
     const date = new Date(startedAt);
-    date.setMonth(date.getMonth() + 1, 7);
+    date.setMonth(date.getMonth() + 1, 5);
     const paymentDateObject = {
       dueDate: date.toJSON().split("T")[0],
       period: date.toLocaleDateString().substring(3),
