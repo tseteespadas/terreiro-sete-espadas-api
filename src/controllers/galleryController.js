@@ -3,7 +3,7 @@ const handle = require("express-async-handler");
 
 const router = express.Router();
 
-const GalleryImages = require("../models/GalleryImages");
+const GalleryImages = require("../models/Gallery");
 
 const afterResponse = require("../helpers/afterResponse");
 
