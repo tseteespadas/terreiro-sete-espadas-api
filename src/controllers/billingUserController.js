@@ -28,7 +28,7 @@ router.get(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        error:
+        message:
           "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
@@ -149,7 +149,66 @@ router.post(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        error:
+        message:
+          "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
+      });
+    }
+  })
+);
+
+/** Bulk add users to group */
+router.put(
+  "/users",
+  authMiddleware,
+  groupsMiddleware,
+  handle(async (req, res) => {
+    try {
+      res.on("finish", () => afterResponse(req, res));
+      if (!permissionMiddleware(req, "updateAny")) {
+        return res.status(403).json({ message: "Acesso negado." });
+      }
+      const { users, group_id } = req.body;
+      if (!users || users.length === 0 || !group_id) {
+        return res.status(400).json({
+          message:
+            "Não é possível associar os usuários a um grupo de pagamento.",
+        });
+      }
+
+      const billingValueGroupExists = await BillingValueGroups.findOne({
+        id: group_id,
+      });
+
+      if (!billingValueGroupExists) {
+        return res
+          .status(400)
+          .json({ message: "O grupo de pagamento não existe." });
+      }
+
+      for (const user of users) {
+        const userAssociation = await BillingUsers.findOne({
+          user_billing_email: user.user_billing_email,
+        });
+        if (userAssociation) {
+          await BillingUsers.findByIdAndDelete(userAssociation.id);
+        }
+      }
+
+      const data = await BillingUsers.insertMany(
+        users.map((user) => {
+          return {
+            ...user,
+            id: uuid(),
+            billing_group_id: group_id,
+          };
+        })
+      );
+
+      return res.status(201).json({ data });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        message:
           "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
@@ -199,7 +258,7 @@ router.put(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        error:
+        message:
           "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
@@ -247,7 +306,7 @@ router.patch(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        error:
+        message:
           "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
@@ -291,7 +350,7 @@ router.patch(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        error:
+        message:
           "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
@@ -335,7 +394,7 @@ router.patch(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        error:
+        message:
           "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }
@@ -375,7 +434,7 @@ router.delete(
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        error:
+        message:
           "O servidor não conseguiu processar sua solicitação. Entre em contato com um administrador.",
       });
     }

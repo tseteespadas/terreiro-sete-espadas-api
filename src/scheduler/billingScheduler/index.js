@@ -13,10 +13,10 @@ async function billingScheduler(startedAt = new Date()) {
       status: "RUNNING",
     });
     const date = new Date(startedAt);
-    date.setMonth(date.getMonth() + 1, 5);
+    date.setMonth(date.getMonth() + 1, 7);
     const paymentDateObject = {
       dueDate: date.toJSON().split("T")[0],
-      period: date.toLocaleDateString().substring(3),
+      period: date.toLocaleDateString().substring(3).replace("/", "-"),
     };
 
     const billingValueGroups = await BillingValueGroups.find();
