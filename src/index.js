@@ -17,6 +17,8 @@ require("./controllers/umbandaCourseController")(app);
 require("./controllers/umbandaCourseRegistrationController")(app);
 require("./controllers/zePelintraCourseController")(app);
 require("./controllers/zePelintraCourseRegistrationController")(app);
+require("./controllers/ervasCourseController")(app);
+require("./controllers/ervasCourseRegistrationController")(app);
 
 require("./controllers/billingGroupController")(app);
 require("./controllers/billingUserController")(app);
