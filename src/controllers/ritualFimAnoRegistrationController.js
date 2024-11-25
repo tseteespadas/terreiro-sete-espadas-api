@@ -62,7 +62,7 @@ router.post(
         sendMail(
           email,
           "Comunidade Ògún Onirê - Confirmação de Inscrição no Ritual de Abertura de Caminhos para 2025",
-          "courseconfirm",
+          "event-payment",
           {
             nome: name,
             curso: "Ritual de Abertura de Caminhos para 2025",
