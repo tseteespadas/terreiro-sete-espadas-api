@@ -4,8 +4,8 @@ const validator = require("express-joi-validation").createValidator({});
 
 const router = express.Router();
 
-const UmbandaCourse = require("../models/UmbandaCourse");
-const UmbandaCourseRegistration = require("../models/UmbandaCourseRegistration");
+const RitualFimAno = require("../models/RitualFimAno");
+const RitualFimAnoRegistration = require("../models/RitualFimAnoRegistration");
 const CoursesRegistrationValidator = require("../validators/coursesRegistration");
 
 const sendMail = require("../helpers/mailer");
@@ -19,7 +19,7 @@ router.get(
       res.on("finish", () => afterResponse(req, res));
       const { courseId } = req.params;
 
-      const inscritos = await UmbandaCourseRegistration.find({
+      const inscritos = await RitualFimAnoRegistration.find({
         course_id: courseId,
       });
 
@@ -41,12 +41,12 @@ router.post(
       res.on("finish", () => afterResponse(req, res));
       const { course_id, name, email } = req.body;
 
-      const exists = await UmbandaCourse.findById(course_id);
+      const exists = await RitualFimAno.findById(course_id);
       if (!exists) {
-        return res.status(404).json({ error: "O curso não existe." });
+        return res.status(404).json({ error: "O ritual não existe." });
       }
 
-      const alreadyRegistered = await UmbandaCourseRegistration.findOne({
+      const alreadyRegistered = await RitualFimAnoRegistration.findOne({
         email,
         course_id,
       });
@@ -54,30 +54,30 @@ router.post(
       if (alreadyRegistered) {
         return res
           .status(400)
-          .json({ error: "Você já se inscreveu para esse curso. " });
+          .json({ error: "Você já se inscreveu para esse ritual. " });
       }
 
-      const inscricao = await UmbandaCourseRegistration.create(req.body);
+      const inscricao = await RitualFimAnoRegistration.create(req.body);
       await Promise.all([
         sendMail(
           email,
-          "Terreiro Sete Espadas - Confirmação de Inscrição no Curso Umbanda",
+          "Comunidade Ògún Onirê - Confirmação de Inscrição no Ritual de Abertura de Caminhos para 2025",
           "courseconfirm",
           {
             nome: name,
-            curso: "Umbanda",
-            tipoEvento: "curso",
+            curso: "Ritual de Abertura de Caminhos para 2025",
+            tipoEvento: "ritual",
           },
           null
         ),
         sendMail(
-          "tseteespadas@gmail.com",
-          "Terreiro Sete Espadas - Nova Inscrição no Curso Umbanda",
+          "comunidadeonire@gmail.com",
+          "Comunidade Ògún Onirê - Nova Inscrição no Ritual de Abertura de Caminhos para 2025",
           "courseconfirmself",
           {
             ...req.body,
-            curso: "Umbanda",
-            tipoEvento: "curso",
+            curso: "Ritual de Abertura de Caminhos para 2025",
+            tipoEvento: "ritual",
           },
           null
         ),
@@ -92,4 +92,4 @@ router.post(
   })
 );
 
-module.exports = (app) => app.use("/cursos/umbanda/inscricoes", router);
+module.exports = (app) => app.use("/cursos/ritual2025/inscricoes", router);

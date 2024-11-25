@@ -66,6 +66,7 @@ router.post(
           {
             nome: name,
             curso: "Curso de Ervas",
+            tipoEvento: "curso",
           },
           null
         ),
@@ -76,6 +77,7 @@ router.post(
           {
             ...req.body,
             curso: "Curso de Ervas",
+            tipoEvento: "curso",
           },
           null
         ),

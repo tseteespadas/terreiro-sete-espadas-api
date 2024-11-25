@@ -46,10 +46,12 @@ router.post(
         return res.status(404).json({ error: "O curso não existe." });
       }
 
-      const alreadyRegistered = await DesenvolvimentoCourseRegistration.findOne({
-        email,
-        course_id,
-      });
+      const alreadyRegistered = await DesenvolvimentoCourseRegistration.findOne(
+        {
+          email,
+          course_id,
+        }
+      );
 
       if (alreadyRegistered) {
         return res
@@ -68,6 +70,7 @@ router.post(
           {
             nome: name,
             curso: "Desenvolvimento de Terreiro",
+            tipoEvento: "curso",
           },
           null
         ),
@@ -78,6 +81,7 @@ router.post(
           {
             ...req.body,
             curso: "Desenvolvimento de Terreiro",
+            tipoEvento: "curso",
           },
           null
         ),
