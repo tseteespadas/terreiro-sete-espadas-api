@@ -4,8 +4,8 @@ const validator = require("express-joi-validation").createValidator({});
 
 const router = express.Router();
 
-const UmbandaCourse = require("../models/UmbandaCourse");
-const UmbandaCourseRegistration = require("../models/UmbandaCourseRegistration");
+const ErvasCourse = require("../models/ErvasCourse");
+const ErvasCourseRegistration = require("../models/ErvasCourseRegistration");
 const CoursesRegistrationValidator = require("../validators/coursesRegistration");
 
 const sendMail = require("../helpers/mailer");
@@ -19,7 +19,7 @@ router.get(
       res.on("finish", () => afterResponse(req, res));
       const { courseId } = req.params;
 
-      const inscritos = await UmbandaCourseRegistration.find({
+      const inscritos = await ErvasCourseRegistration.find({
         course_id: courseId,
       });
 
@@ -41,12 +41,12 @@ router.post(
       res.on("finish", () => afterResponse(req, res));
       const { course_id, name, email } = req.body;
 
-      const exists = await UmbandaCourse.findById(course_id);
+      const exists = await ErvasCourse.findById(course_id);
       if (!exists) {
         return res.status(404).json({ error: "O curso não existe." });
       }
 
-      const alreadyRegistered = await UmbandaCourseRegistration.findOne({
+      const alreadyRegistered = await ErvasCourseRegistration.findOne({
         email,
         course_id,
       });
@@ -57,26 +57,26 @@ router.post(
           .json({ error: "Você já se inscreveu para esse curso. " });
       }
 
-      const inscricao = await UmbandaCourseRegistration.create(req.body);
+      const inscricao = await ErvasCourseRegistration.create(req.body);
       await Promise.all([
         sendMail(
           email,
-          "Terreiro Sete Espadas - Confirmação de Inscrição no Curso Umbanda",
+          "Comunidade Ògún Onirê - Confirmação de Inscrição no Curso Curso de Ervas",
           "courseconfirm",
           {
             nome: name,
-            curso: "Umbanda",
+            curso: "Curso de Ervas",
             tipoEvento: "curso",
           },
           null
         ),
         sendMail(
-          "tseteespadas@gmail.com",
-          "Terreiro Sete Espadas - Nova Inscrição no Curso Umbanda",
+          "comunidadeonire@gmail.com",
+          "Comunidade Ògún Onirê - Nova Inscrição no Curso Curso de Ervas",
           "courseconfirmself",
           {
             ...req.body,
-            curso: "Umbanda",
+            curso: "Curso de Ervas",
             tipoEvento: "curso",
           },
           null
@@ -92,4 +92,4 @@ router.post(
   })
 );
 
-module.exports = (app) => app.use("/cursos/umbanda/inscricoes", router);
+module.exports = (app) => app.use("/cursos/ervas/inscricoes", router);
