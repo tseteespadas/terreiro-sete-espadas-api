@@ -14,7 +14,7 @@ const playlists = [
   {
     id: uuid(),
     type: "section",
-    title: "Bandas",
+    title: "Ancestrais",
     medias: [
       {
         id: uuid(),
