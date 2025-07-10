@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 module.exports = {
   courseId: Joi.object({
-    courseId: Joi.string().required()
+    courseId: Joi.string().required(),
   }),
   post: Joi.object({
     course_id: Joi.string().required(),
@@ -16,5 +16,13 @@ module.exports = {
     number: Joi.string().required(),
     city: Joi.string().required(),
     neighborhood: Joi.string().required(),
+  }),
+  postResumed: Joi.object({
+    course_id: Joi.string().required(),
+    name: Joi.string().required(),
+    email: Joi.string().required(),
+    phone: Joi.string().required(),
+    gender: Joi.string().required(),
+    pronoums: Joi.string().required(),
   }),
 };

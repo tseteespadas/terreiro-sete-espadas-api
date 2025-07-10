@@ -28,6 +28,12 @@ module.exports = {
       icon: ["fas", "money-bill-alt"],
     },
     {
+      name: "Rituais",
+      path: "/rituais-admin",
+      description: "Permite gerenciar os rituais abertos da comunidade.",
+      icon: ["fas", "star-of-david"],
+    },
+    {
       name: "Biblioteca",
       path: "/biblioteca",
       description: "Base de conhecimento da Comunidade Ògún Onirê",

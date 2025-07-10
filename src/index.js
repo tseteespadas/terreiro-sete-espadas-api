@@ -21,6 +21,8 @@ require("./controllers/ervasCourseController")(app);
 require("./controllers/ervasCourseRegistrationController")(app);
 require("./controllers/ritualFimAnoController")(app);
 require("./controllers/ritualFimAnoRegistrationController")(app);
+require("./controllers/ritualDamaController")(app);
+require("./controllers/ritualDamaRegistrationController")(app);
 
 require("./controllers/billingGroupController")(app);
 require("./controllers/billingUserController")(app);
