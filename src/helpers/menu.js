@@ -34,6 +34,12 @@ module.exports = {
       icon: ["fas", "star-of-david"],
     },
     {
+      name: "Giras",
+      path: "/giras",
+      description: "Gerencie as giras públicas do terreiro.",
+      icon: ["fas", "users"],
+    },
+    {
       name: "Biblioteca",
       path: "/biblioteca",
       description: "Base de conhecimento da Comunidade Ògún Onirê",
@@ -67,6 +73,12 @@ module.exports = {
       description:
         "Visualize os próximos eventos do terreiro como giras, rituais, manifestações, e mais!",
       icon: ["fas", "calendar-alt"],
+    },
+    {
+      name: "Giras",
+      path: "/giras",
+      description: "Gerencie as giras públicas do terreiro.",
+      icon: ["fas", "people-group"],
     },
     {
       name: "Biblioteca",

@@ -32,6 +32,7 @@ require("./controllers/groupController")(app);
 require("./controllers/eventController")(app);
 require("./controllers/playlistsController")(app);
 require("./controllers/galleryController")(app);
+require("./controllers/giraAbertaController")(app);
 
 require("./controllers/v2/userController")(app);
 
