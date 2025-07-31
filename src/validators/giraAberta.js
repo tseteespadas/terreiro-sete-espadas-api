@@ -11,14 +11,24 @@ module.exports = {
   queryDate: Joi.object({
     date: Joi.date().required(),
   }),
+  queryName: Joi.object({
+    name: Joi.string().required(),
+  }),
   postGira: Joi.object({
     name: Joi.string().required(),
     date: Joi.date().required(),
   }),
   post: Joi.object({
     name: Joi.string().required(),
-    phone: Joi.string().required(),
+    phone: Joi.string(),
     pronoums: Joi.string().required(),
     preferred: Joi.boolean().required(),
+  }),
+  patchCalledParams: Joi.object({
+    giraId: Joi.string().required(),
+    assistenciaId: Joi.string().required(),
+  }),
+  patchCalledBody: Joi.object({
+    called: Joi.boolean().required(),
   }),
 };

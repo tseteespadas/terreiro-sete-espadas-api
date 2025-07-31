@@ -78,7 +78,7 @@ module.exports = {
       name: "Giras",
       path: "/giras",
       description: "Gerencie as giras públicas do terreiro.",
-      icon: ["fas", "people-group"],
+      icon: ["fas", "users"],
     },
     {
       name: "Biblioteca",

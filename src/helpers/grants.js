@@ -34,7 +34,8 @@ ac.grant("admin")
   .readAny("/billing-value-groups")
   .createAny("/billing-value-groups")
   .updateAny("/billing-value-groups")
-  .deleteAny("/billing-value-groups");
+  .deleteAny("/billing-value-groups")
+  .deleteAny("/giras");
 
 ac.lock();
 

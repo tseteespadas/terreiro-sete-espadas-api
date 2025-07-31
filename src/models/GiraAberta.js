@@ -7,7 +7,6 @@ const AssistenciaSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    required: true,
   },
   pronoums: {
     type: String,
@@ -17,6 +16,10 @@ const AssistenciaSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
     required: true,
+  },
+  called: {
+    type: Boolean,
+    default: false,
   },
   createdAt: {
     type: Date,
