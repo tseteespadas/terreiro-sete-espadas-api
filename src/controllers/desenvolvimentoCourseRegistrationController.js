@@ -71,6 +71,7 @@ router.post(
             nome: name,
             curso: "Desenvolvimento de Terreiro",
             tipoEvento: "curso",
+            linkUrl: "https://forms.gle/GaPYvJx8k8zoiKKm9",
           },
           null
         ),
