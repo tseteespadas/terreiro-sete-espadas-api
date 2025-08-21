@@ -36,6 +36,8 @@ require("./controllers/giraAbertaController")(app);
 
 require("./controllers/v2/userController")(app);
 
+require("./controllers/sdkController")(app);
+
 app.listen(process.env.PORT || 8080);
 
 const scheduler = require("./scheduler");
