@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.get(
   "/",
-  validator.params(CoursesRegistrationValidator.courseId),
   handle(async (req, res) => {
     try {
       res.on("finish", () => afterResponse(req, res));
@@ -27,7 +26,6 @@ router.get(
 
 router.post(
   "/",
-  validator.params(CoursesRegistrationValidator.courseId),
   handle(async (req, res) => {
     try {
       res.on("finish", () => afterResponse(req, res));
