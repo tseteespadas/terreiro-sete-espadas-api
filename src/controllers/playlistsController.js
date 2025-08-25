@@ -33,6 +33,16 @@ const playlists = [
       },
       {
         id: uuid(),
+        playlistId: "PLu0QKgxGa29y-tsD9eRSOyH0OQVGmwpBM",
+        title: "Povo do Nordeste",
+      },
+      {
+        id: uuid(),
+        playlistId: "PLu0QKgxGa29ykJyZeUWHUXh_kXuTsRoFG",
+        title: "Caboclos",
+      },
+      {
+        id: uuid(),
         playlistId: "PLu0QKgxGa29z9ooI0mLY3TWHEy-WMAkLr",
         title: "Povo do mar",
       },
@@ -51,6 +61,11 @@ const playlists = [
         playlistId: "PLu0QKgxGa29y4tyPc-H_JlH7NcEegGVv6",
         title: "Erês",
       },
+      {
+        id: uuid(),
+        playlistId: "PLu0QKgxGa29yDHLsmfIT2JFXvBP8CF2wN",
+        title: "Família de Légua",
+      },
     ],
   },
   {
@@ -65,12 +80,17 @@ const playlists = [
       },
       {
         id: uuid(),
-        playlistId: "PLu0QKgxGa29xKTw-hz5cr69KRRObkGojG",
+        playlistId: "PLu0QKgxGa29wTdqhABgG7iU02QIcSKNOa",
+        title: "Èṣù",
+      },
+      {
+        id: uuid(),
+        playlistId: "PLu0QKgxGa29zDYcKsK2WYSGlcHdH0nkq6",
         title: "Oyá",
       },
       {
         id: uuid(),
-        playlistId: "PLu0QKgxGa29z-Cbn63wBW0gRzAambUPI8",
+        playlistId: "PLu0QKgxGa29x17309mbkBkuJl_11R-baO",
         title: "Oṣun",
       },
     ],
@@ -89,6 +109,16 @@ const playlists = [
         id: uuid(),
         playlistId: "PLu0QKgxGa29yMlwvivldigHdXzdyhNG7_",
         title: "Abertura",
+      },
+      {
+        id: uuid(),
+        playlistId: "PLu0QKgxGa29yMELxq8fR5bY1shipDzNDc",
+        title: "Saudação",
+      },
+      {
+        id: uuid(),
+        playlistId: "PLu0QKgxGa29wxW2vsSEGwuIOM0Alpy6z-",
+        title: "Ritual para o Amor",
       },
     ],
   },
