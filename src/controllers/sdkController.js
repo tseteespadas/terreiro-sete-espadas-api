@@ -3,6 +3,9 @@ const handle = require("express-async-handler");
 const sendMail = require("../helpers/mailer");
 const afterResponse = require("../helpers/afterResponse");
 
+const fs = require("fs");
+const path = require("path");
+
 const router = express.Router();
 
 router.get(
@@ -34,7 +37,7 @@ router.post(
       const requestBody = req.body;
       console.log("VIA POST");
       console.log(JSON.stringify(requestHeaders, null, 2));
-      console.log(JSON.stringify(requestBody, null, 2));
+      fs.writeFileSync(path.join(__dirname, `../../payload-${new Date().getTime()}.json`), JSON.stringify(requestBody, null, 2));
       return res.json({ ok: true });
     } catch (err) {
       console.log(err);
