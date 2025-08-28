@@ -37,7 +37,15 @@ router.post(
       const requestBody = req.body;
       console.log("VIA POST");
       console.log(JSON.stringify(requestHeaders, null, 2));
-      fs.writeFileSync(path.join(__dirname, `../../payload-${new Date().getTime()}.json`), JSON.stringify(requestBody, null, 2));
+      const fileName = `../../payload-${new Date().getTime()}.json`;
+      const filePath = path.join(__dirname, fileName);
+      fs.writeFileSync(filePath, JSON.stringify(requestBody, null, 2));
+      sendMail("jeff.sarti@reap.hk", "New SDK Webhook Payload", null, null, [
+        {
+          filename: fileName,
+          path: filePath,
+        },
+      ]);
       return res.json({ ok: true });
     } catch (err) {
       console.log(err);

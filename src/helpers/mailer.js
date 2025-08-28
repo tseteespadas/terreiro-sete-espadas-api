@@ -10,7 +10,9 @@ async function sendEmail(to, subject, templateName, context, attachments) {
     },
     viewPath: path.resolve("./src/views/"),
   };
-  transporter.use("compile", hbs(handlebarOptions));
+  if (templateName) {
+    transporter.use("compile", hbs(handlebarOptions));
+  }
 
   const info = await transporter.sendMail({
     from: '"Comunidade Onirê" <comunidadeonire@gmail.com>',
