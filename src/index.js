@@ -36,7 +36,8 @@ require("./controllers/giraAbertaController")(app);
 
 require("./controllers/v2/userController")(app);
 
-require("./controllers/sdkController")(app);
+require("./controllers/sdkCallbackController")(app);
+require("./controllers/sdkEventCallbackController")(app);
 
 app.listen(process.env.PORT || 8080);
 

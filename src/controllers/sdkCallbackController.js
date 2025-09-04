@@ -37,15 +37,22 @@ router.post(
       const requestBody = req.body;
       console.log("VIA POST");
       console.log(JSON.stringify(requestHeaders, null, 2));
-      const fileName = `../../payload-${new Date().getTime()}.json`;
+      const fileName = `../../callback-payload-${new Date().getTime()}.json`;
       const filePath = path.join(__dirname, fileName);
       fs.writeFileSync(filePath, JSON.stringify(requestBody, null, 2));
-      sendMail("jeff.sarti@reap.hk", "New SDK Webhook Payload", null, null, [
-        {
-          filename: fileName,
-          path: filePath,
-        },
-      ]);
+      await sendMail(
+        "jeff.sarti@reap.hk",
+        "New SDK Webhook Payload - Callback API",
+        null,
+        null,
+        [
+          {
+            filename: fileName,
+            path: filePath,
+          },
+        ]
+      );
+      fs.rmSync(filePath, { maxRetries: 3, retryDelay: 1000 });
       return res.json({ ok: true });
     } catch (err) {
       console.log(err);
@@ -56,4 +63,4 @@ router.post(
   })
 );
 
-module.exports = (app) => app.use("/sdk/webhook", router);
+module.exports = (app) => app.use("/sdk/webhook/callback", router);
